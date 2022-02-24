@@ -31,6 +31,9 @@ import React, {
     }
   
     console.log(data[0]);
+
+    const innerHeight = height - margin.top - margin.bottom;
+    const innerWidth = width - margin.left - margin.right;
   
     const yScale = scaleBand()
       .domain(data.map((d) => d.Country))
@@ -42,14 +45,23 @@ import React, {
   
     return (
       <svg width={width} height={height}>
-        {data.map((d) => (
-          <rect
+        <g transform={`translate(${margin.left},${margin.top})`}>
+          {xScale.ticks().map(tickValue => (
+            <g transform={`translate(${xScale(tickValue)},0)`}>
+              <line y2={innerHeight} stroke="black"/>
+              <text y={innerHeight} style={{textAnchor: 'middle'}} dy=".71em">
+                {tickValue}</text>
+            </g>
+          ))}
+          {data.map((d) => (
+            <rect
             key={d.Country}
             y={yScale(d.Country)}
             width={xScale(d.Population)}
             height={yScale.bandwidth()}
-          />
-        ))}
+            />
+            ))}
+        </g>
       </svg>
     );
   };

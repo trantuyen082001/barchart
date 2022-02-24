@@ -11,6 +11,7 @@
     
     var width = 960;
     var height = 500;
+    var margin = {top: 20, right: 20, bottom: 20, left: 20};
     
     var App = function () {
       var ref = React.useState(null);
@@ -32,6 +33,8 @@
       }
     
       console.log(data[0]);
+
+      var innerHeight = height - margin.top - margin.bottom;
     
       var yScale = d3.scaleBand()
         .domain(data.map(function (d) { return d.Country; }))
@@ -43,10 +46,19 @@
     
       return (
         React__default["default"].createElement( 'svg', { width: width, height: height }, 
-          data.map(function (d) { return (
-            React__default["default"].createElement( 'rect', {
+          React__default["default"].createElement( 'g', { transform: ("translate(" + (margin.left) + "," + (margin.top) + ")") }, 
+            xScale.ticks().map(function (tickValue) { return (
+              React__default["default"].createElement( 'g', { transform: ("translate(" + (xScale(tickValue)) + ",0)") }, 
+                React__default["default"].createElement( 'line', { y2: innerHeight, stroke: "black" }), 
+                React__default["default"].createElement( 'text', { y: innerHeight, style: {textAnchor: 'middle'}, dy: ".71em" }, 
+                  tickValue)
+              )
+            ); }), 
+            data.map(function (d) { return (
+              React__default["default"].createElement( 'rect', {
               key: d.Country, y: yScale(d.Country), width: xScale(d.Population), height: yScale.bandwidth() })
-          ); })
+              ); })
+          )
         )
       );
     };
