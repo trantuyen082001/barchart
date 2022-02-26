@@ -5,6 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Making a bart chart</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        pre {
+            font-size: 7em;
+        }
+
+        .tick line {
+            stroke: #C0C0BB;
+        }
+
+        .tick text {
+            fill: #635F5D;
+        }
+
+        .mark {
+            fill: #137B80;
+        }
+        
+        .axis-label {
+        font-size: 2.5em;
+        fill: #635F5D;
+      }
+    </style>
     <script src="https://unpkg.com/react@16.9.0/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16.9.0/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/d3@5.11.0/dist/d3.min.js"></script>
